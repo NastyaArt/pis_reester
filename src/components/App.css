@@ -55,13 +55,10 @@ footer{
 	z-index: 1;
 }
 
-.currency_table{
-	display: flex;
-	height: 100%;
-	width: 100%;
-	margin: 0 50px;
-	box-sizing: border-box;
-	overflow: hidden;
+.template_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .table_container{

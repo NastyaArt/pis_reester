@@ -5,25 +5,11 @@ import { CSVLink } from "react-csv";
 import ReactTable from "react-table";
 import { Button } from "reactstrap";
 
-import JSZip from 'jszip';
-import Docxtemplater from 'docxtemplater';
-import saveAs from 'file-saver';
-import JSZipUtils from 'jszip-utils';
-
 class Table extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = {
-        //     convertData: null,
-        //     header: null
-        // };
-    }
     render() {
         if (!this.props.convertData || !this.props.header) {
             return (
                 <div className='csv-container'>
-                    {/* <input type="file" id="file" name="file" multiple onChange={this.fileChange}/> */}
-                    <Button onClick={this.createTemplate}>Create template</Button>
                     <CSVReader
                         cssClass="csv-input"
                         label="Select CSV file"
@@ -94,38 +80,6 @@ class Table extends Component {
         })
         this.props.onSetConvertData(convertData);
         this.props.onSetHeaderData(header);
-    }
-
-    createTemplate = () => {
-        JSZipUtils.getBinaryContent('./input.docx', (error, content) => {
-            if (error) { throw error };
-            var zip = new JSZip(content);
-            var doc = new Docxtemplater().loadZip(zip);
-            doc.setData({
-                first_name: 'John',
-                last_name: 'Doe',
-                phone: '0652455478',
-                description: 'New Website'
-            });
-            try {
-                doc.render()
-            }
-            catch (error) {
-                var e = {
-                    message: error.message,
-                    name: error.name,
-                    stack: error.stack,
-                    properties: error.properties,
-                }
-                console.log(JSON.stringify({error: e}));
-                throw error;
-            }
-            var out=doc.getZip().generate({
-                type:"blob",
-                mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            })
-            saveAs(out,"output.docx");
-        });
     }
 
     cleanState = () => {

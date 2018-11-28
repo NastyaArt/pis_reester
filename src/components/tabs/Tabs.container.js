@@ -7,7 +7,8 @@ const mapStateToProps = state => {
         currentTab: state.tabs_switcher.currentTab,
         tabsInfo: [
             { id: "table", name: "Table" },
-            { id: "chart", name: "Chart" },
+            { id: "template", name: "Docx templater" },
+            { id: "convocation", name: "Сonvocation" }
         ]
     };
 };

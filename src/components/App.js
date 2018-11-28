@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from './tabs/Tabs.container';
 import Table from './table/Table.container';
+import DocxTemplater from './docxTemplater/DocxTemplater.container';
 
 import './App.css';
 
@@ -28,6 +29,13 @@ class App extends Component {
                 return (
                         <div className="table_container">
                             <Table />
+                        </div>
+                );
+
+            case "template":
+                return (
+                        <div className="template_container">
+                            <DocxTemplater />
                         </div>
                 );
 
