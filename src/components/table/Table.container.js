@@ -1,19 +1,26 @@
 import { connect } from 'react-redux';
 import Table from './Table';
+import { setCovertData, setHeaderData, cleanData } from './../../redux/modules/reester';
+
 const mapStateToProps = state => {
-    let selectedCurrencies = [...state.filter.selectedTableCurrencies]
-    if (state.rates.ticks) {
-        let rates = [...state.rates.ticks];
-        return {
-            selectedCurrencies,
-            rates
-        };
-    } else {
-        return {
-            selectedCurrencies,
-        };
+    return {
+        convertData: state.reester.convertData,
+        header: state.reester.header
     }
 };
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetConvertData: (data) => {
+            dispatch(setCovertData(data));
+        },
+        onSetHeaderData: (data) => {
+            dispatch(setHeaderData(data));
+        },
+        onCleanData: () => {
+            dispatch(cleanData());
+        }
+    };
+};
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
