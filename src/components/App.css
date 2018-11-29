@@ -67,3 +67,10 @@ footer{
 	flex: 1 1 auto;
 	padding: 10px 0;
 }
+
+.convocation_container{
+	box-sizing: border-box;
+	margin: 0;
+	flex: 1 1 auto;
+	padding: 10px 0;
+}

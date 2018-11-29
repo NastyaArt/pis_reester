@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { changeTab } from '../../redux/modules/tabs_switcher';
+import { changeTab } from '../../redux/tabs_switcher';
 import Tabs from './Tabs';
 
 const mapStateToProps = state => {
@@ -8,7 +8,7 @@ const mapStateToProps = state => {
         tabsInfo: [
             { id: "table", name: "Table" },
             { id: "template", name: "Docx templater" },
-            { id: "convocation", name: "Сonvocation" }
+            { id: "convocation", name: "Convocation" }
         ]
     };
 };
