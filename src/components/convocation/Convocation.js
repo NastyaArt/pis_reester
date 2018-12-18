@@ -3,13 +3,19 @@ import './Convocation.css';
 import ReactTable from "react-table";
 import { Button, Input } from "reactstrap";
 import uuidv1 from'uuid/v1';
+import { CSVLink } from "react-csv";
 
 class Convocation extends Component {
     constructor(props) {
         super(props);
         this.state = {
             quests: [],
-            tableData: this.props.data,
+            tableData: this.props.data ? this.props.data.map((elem) => {
+                return {
+                    "FAMILY": elem.FAMILY,
+                    "REAL": elem.REAL
+                }
+            }) : [],
             header: []
         };
     }
@@ -18,7 +24,12 @@ class Convocation extends Component {
         if (this.props.data !== nextProps.data) {
             this.setState({
                 quests: [],
-                tableData: nextProps.data,
+                tableData: nextProps.data.map((elem) => {
+                    return {
+                        "FAMILY": elem.FAMILY,
+                        "REAL": elem.REAL
+                    }
+                }),
                 header: []
             })
         }
@@ -31,9 +42,12 @@ class Convocation extends Component {
             return (
                 <div>
                     <div className="quests-container">
+                        <CSVLink data={this.getCSVData()} filename={"reester.csv"} className="btn btn-primary">Скачать csv</CSVLink>
+                    </div>
+                    <div className="quests-container">
                         <h5>Добавить вопрос</h5>
                         {this.renderQuestsInputs()}
-                        <Button color="primary" className="button-margin" onClick={this.addQuest}>Добавить</Button>
+                        <Button color="success" className="button-margin" onClick={this.addQuest}>Добавить</Button>
                     </div>
                     <div className="table-container">
                         <ReactTable
@@ -46,6 +60,23 @@ class Convocation extends Component {
                 </div>
             )
         }
+    }
+
+    getCSVData = () => {
+        let data = [...this.state.tableData];
+
+        data = data.map((elem, id) => {
+            this.state.quests.forEach((quest) => {
+                elem[(id + 1) + '.' + quest.name + ' : да'] = elem[quest.id + '_yes'];
+                elem[(id + 1) + '.' + quest.name + ' : нет'] = elem[quest.id + '_no'];
+                elem[(id + 1) + '.' + quest.name + ' : воздержался'] = elem[quest.id + '_'];
+                delete elem[quest.id + '_yes'];
+                delete elem[quest.id + '_no'];
+                delete elem[quest.id + '_'];
+            })
+            return elem;
+        })
+        return data;
     }
 
     renderQuestsInputs = () => {
@@ -84,7 +115,7 @@ class Convocation extends Component {
                   Header: elem.name,
                   columns: [
                     {
-                        Header: "Yes",
+                        Header: "Да",
                         accessor: elem.id + "_yes",
                         Cell: this.renderEditable,
                         style: {
@@ -93,7 +124,7 @@ class Convocation extends Component {
                         maxWidth: 50
                     },
                     {
-                        Header: "No",
+                        Header: "Нет",
                         accessor: elem.id + "_no",
                         Cell: this.renderEditable,
                         style: {
@@ -136,11 +167,13 @@ class Convocation extends Component {
 
     addQuest = () => {
         let quests = this.state.quests;
+        let id = uuidv1();
         quests.push({
-            id: uuidv1(),
+            id: id,
             name: "Вопрос"
         })
         this.setState({quests: quests});
+        this.addQuestTableData(id);
     }
 
     delQuest = (id) => (e) => {
@@ -152,6 +185,7 @@ class Convocation extends Component {
             return true;
         })
         this.setState({quests: quests});
+        this.delQuestTableData(id);
     }
 
     onChangeQuestName = (id) => (e) => {
@@ -166,7 +200,7 @@ class Convocation extends Component {
     }
 
     addQuestTableData = (id) => {
-        let data = this.state.tableData;
+        let data = [...this.state.tableData];
         data = data.map((elem) => {
             elem[id + '_yes'] = "";
             elem[id + '_no'] = "";
@@ -177,7 +211,7 @@ class Convocation extends Component {
     }
 
     delQuestTableData = (id) => {
-        let data = this.state.tableData;
+        let data = [...this.state.tableData];
         data = data.map((elem) => {
             delete elem[id + '_yes'];
             delete elem[id + '_no'];
