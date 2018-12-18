@@ -23,6 +23,7 @@ class Table extends Component {
                     <div className="menu-container">
                         <CSVLink data={this.props.convertData} filename={"reester.csv"} className="btn btn-primary">Скачать csv</CSVLink>
                         <Button onClick={this.cleanState}>Закрыть файл</Button>
+                        <Button color="warning" onClick={this.addItem}>Добавить элемент</Button>
                     </div>
                     <div className="table-container">
                         <ReactTable
@@ -38,7 +39,18 @@ class Table extends Component {
     }
 
     getColumns = () => {
-        let columns = [];
+        let columns = [{
+            Header: "",
+            Cell: row => {
+                return (
+                    <Button onClick={() => {
+                        this.props.onDelItem(row.index);
+                    }}>Удалить</Button>
+                )
+
+            }
+        }];
+
         this.props.header.forEach((elem) => {
             columns.push({
                 Header: elem,
@@ -85,7 +97,10 @@ class Table extends Component {
     cleanState = () => {
         this.props.onCleanData();
     }
-    
+
+    addItem = () => {
+        this.props.onAddItem({});
+    }
 };
 
 export default Table;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Table from './Table';
-import { setCovertData, setHeaderData, cleanData } from '../../redux/reester';
+import { setConvertData, setHeaderData, cleanData, addDataItem, delDataItem } from '../../redux/reester';
 
 const mapStateToProps = state => {
     return {
@@ -12,13 +12,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onSetConvertData: (data) => {
-            dispatch(setCovertData(data));
+            dispatch(setConvertData(data));
         },
         onSetHeaderData: (data) => {
             dispatch(setHeaderData(data));
         },
         onCleanData: () => {
             dispatch(cleanData());
+        },
+        onAddItem: (item) => {
+            dispatch(addDataItem(item));
+        },
+        onDelItem: (index) => {
+            dispatch(delDataItem(index));
         }
     };
 };
