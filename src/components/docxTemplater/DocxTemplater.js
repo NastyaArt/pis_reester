@@ -20,6 +20,7 @@ class DocxTemplater extends Component {
         };
     }
     render() {
+        console.log(this.state.template);
         if (!this.props.data || !this.props.header) {
             return null;
         } else {
@@ -27,20 +28,20 @@ class DocxTemplater extends Component {
                 <div className="docx-templater-container">
                     <Form>
                         <FormGroup row>
-                            <Label sm={4}>Template</Label>
+                            <Label sm={4}>Шаблон</Label>
                             <Col sm={8}>
                                 <Input type="select" value={this.state.template} onChange={this.handleChange("template")}>
-                                    <option name="">Select template...</option>
-                                    <option name={TEMPLATES.MAIL}>{TEMPLATES.MAIL}</option>
-                                    <option name={TEMPLATES.ACT}>{TEMPLATES.ACT}</option>
+                                    <option value="">Выберите шаблон...</option>
+                                    <option value={TEMPLATES.MAIL}>{TEMPLATES.MAIL}</option>
+                                    <option value={TEMPLATES.ACT}>{TEMPLATES.ACT}</option>
                                 </Input>
                             </Col>
                         </FormGroup>
                         <FormGroup>
-                            <h6>Template variables from reester:</h6>
+                            <h6>Доступные переменные из реестра:</h6>
                             {this.renderTemplateData()}
                         </FormGroup>
-                        <Button onClick={this.createTemplate} disabled={this.state.template === ""}>Create docx files</Button>
+                        <Button onClick={this.createTemplate} disabled={this.state.template === ""}>Сгенерировать файлы по шаблону</Button>
                     </Form>
                 </div>
             )

@@ -12,7 +12,7 @@ class Table extends Component {
                 <div className='csv-container'>
                     <CSVReader
                         cssClass="csv-input"
-                        label="Select CSV file"
+                        label="Выберите CSV файл"
                         onFileLoaded={this.handleForce}
                     />
                 </div>
@@ -21,8 +21,8 @@ class Table extends Component {
             return (
                 <div>
                     <div className="menu-container">
-                        <CSVLink data={this.props.convertData} filename={"reester.csv"} className="btn btn-primary">Download csv</CSVLink>
-                        <Button onClick={this.cleanState}>Close file</Button>
+                        <CSVLink data={this.props.convertData} filename={"reester.csv"} className="btn btn-primary">Скачать csv</CSVLink>
+                        <Button onClick={this.cleanState}>Закрыть файл</Button>
                     </div>
                     <div className="table-container">
                         <ReactTable

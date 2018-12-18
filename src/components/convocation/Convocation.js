@@ -31,9 +31,9 @@ class Convocation extends Component {
             return (
                 <div>
                     <div className="quests-container">
-                        <h5>Add questions</h5>
+                        <h5>Добавить вопрос</h5>
                         {this.renderQuestsInputs()}
-                        <Button color="primary" className="button-margin" onClick={this.addQuest}>Add</Button>
+                        <Button color="primary" className="button-margin" onClick={this.addQuest}>Добавить</Button>
                     </div>
                     <div className="table-container">
                         <ReactTable
@@ -55,7 +55,7 @@ class Convocation extends Component {
             result.push(
                 <div key={elem.id} className="quest-container">
                     <Input className="quest-input" key={elem.id} value={elem.name} onChange={this.onChangeQuestName(elem.id)}/>
-                    <Button color="danger" onClick={this.delQuest(elem.id)}>Del</Button>
+                    <Button color="danger" onClick={this.delQuest(elem.id)}>Удалить</Button>
                 </div>
             )
         })
@@ -138,7 +138,7 @@ class Convocation extends Component {
         let quests = this.state.quests;
         quests.push({
             id: uuidv1(),
-            name: "Quest"
+            name: "Вопрос"
         })
         this.setState({quests: quests});
     }
