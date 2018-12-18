@@ -71,6 +71,7 @@ class DocxTemplater extends Component {
 
         let isError = false;
 
+        //[dirty]
         const generateTemplates = async (data, template) => {
 
             for (let elem of data) {
@@ -119,6 +120,8 @@ class DocxTemplater extends Component {
         fetch(this.state.path + this.state.template).then((response) => {
             if (response.status === 200){
                 generateTemplates(this.props.data, this.state.path + this.state.template);
+            } else {
+                this.setState({ error: true })
             }
         })
 
